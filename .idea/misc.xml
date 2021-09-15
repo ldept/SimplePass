@@ -5,9 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable/actionbar_border.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/settings_button_with_arrow.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29438405797101447" />
         <entry key="app/src/main/res/layout/activity_new_password.xml" value="0.2109375" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.29438405797101447" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_setup.xml" value="0.2109375" />
         <entry key="app/src/main/res/layout/fragment_password_setup.xml" value="0.2109375" />
       </map>

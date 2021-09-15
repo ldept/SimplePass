@@ -48,6 +48,8 @@
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/Theme.TestActionBar" />
         <activity android:name=".ui.MainActivity" />
+        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/Theme.TestActionBar"/>
     </application>
 
 </manifest>

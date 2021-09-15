@@ -61,6 +61,7 @@
     <string name="welcome_to_simplepass">Witaj w SimplePass</string>
     <string name="biometric_prompt_message">Zaloguj się używając odcisku palca</string>
     <string name="cancel">Anuluj</string>
+    <string name="licenses">Licencje użytych bibliotek</string>
 
 
 </resources>

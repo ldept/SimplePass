@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.dropbox.core.android.Auth
 import com.dropbox.core.v2.DbxClientV2
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ldept.simplepass.R
 import com.ldept.simplepass.biometrics.BiometricAuthentication
 import com.ldept.simplepass.biometrics.BiometricAuthenticationListener
@@ -142,6 +143,13 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
             }
         }
 
+        // Licenses ==================================================================
+        val licensesButton : Button = findViewById(R.id.license_activity_button)
+
+        licensesButton.setOnClickListener {
+            OssLicensesMenuActivity.setActivityTitle(getString(R.string.licenses))
+            startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+        }
 
         // Dropbox ===================================================================
 

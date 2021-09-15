@@ -61,5 +61,6 @@
     <string name="welcome_to_simplepass">Welcome to SimplePass</string>
     <string name="biometric_prompt_message">Log in using your biometric credentials</string>
     <string name="cancel">Cancel</string>
+    <string name="licenses">Licenses of used libraries</string>
 
 </resources>

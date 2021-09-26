@@ -15,10 +15,10 @@ interface PasswordEntryDAO {
     @Delete
     suspend fun deletePassword(passwordEntry : PasswordEntry)
 
-    @Query("SELECT * FROM password_entry_table ORDER BY LENGTH(name), name ASC ")
+    @Query("SELECT * FROM password_entry_table ORDER BY name ASC, LENGTH(name)")
     fun getAllPasswords() : Flow<List<PasswordEntry>>
 
-    @Query("SELECT * FROM  password_entry_table WHERE name LIKE :searchQuery OR login LIKE :searchQuery ORDER BY LENGTH(name), name ASC")
+    @Query("SELECT * FROM  password_entry_table WHERE name LIKE :searchQuery OR login LIKE :searchQuery ORDER BY name ASC, LENGTH(name)")
     fun searchPasswords(searchQuery : String) : Flow<List<PasswordEntry>>
 
     @RawQuery

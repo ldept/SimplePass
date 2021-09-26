@@ -118,17 +118,18 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
                     android:textSize="14sp"
-                    android:layout_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/fingerprint_switch"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="@string/fingerprint_enable_text"/>
+                    android:text="@string/fingerprint_enable_text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <TextView
                     android:id="@+id/fingerprint_enable_under_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
                     android:textSize="12sp"
                     android:layout_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -247,7 +248,8 @@
                 android:textAlignment="viewStart"
                 android:layout_margin="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="@string/licenses"/>
+                android:text="@string/licenses"
+                />
 
 
             <TextView

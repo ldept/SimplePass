@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.ldept.simplepass.R
+import com.ldept.simplepass.databinding.ActivityAuthenticationSettingsBinding
 import com.ldept.simplepass.util.PBKDF2
 import com.ldept.simplepass.util.SplashScreenAnimation
 import kotlinx.coroutines.CoroutineScope
@@ -19,21 +20,26 @@ class AuthenticationSettingsActivity : AppCompatActivity() {
     companion object {
         const val NEW_PASSWORD_EXTRA = "package com.ldept.simplepass.EXTRA_NEW_PASSWORD"
     }
+
+    private lateinit var binding : ActivityAuthenticationSettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_authentication_settings)
+
+        binding = ActivityAuthenticationSettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         title = getString(R.string.change_password)
 
 
-        val newPasswordEditText : EditText = findViewById(R.id.first_password_edittext)
-        val retypedPasswordEditText : EditText = findViewById(R.id.second_password_edittext)
-        val contentView : View = findViewById(R.id.content)
-        val splashScreenView : View = findViewById(R.id.splash_screen)
-
-        val changePasswordButton : Button = findViewById(R.id.change_password_button)
+        val newPasswordEditText : EditText = binding.firstPasswordEdittext
+        val retypedPasswordEditText : EditText = binding.secondPasswordEdittext
+        val contentView : View = binding.content
+        val splashScreenView : View = binding.splashScreenLayout.splashScreen
+        val changePasswordButton : Button = binding.changePasswordButton
 
         changePasswordButton.setOnClickListener {
             val newPassword = newPasswordEditText.text.toString()
@@ -49,7 +55,7 @@ class AuthenticationSettingsActivity : AppCompatActivity() {
                         newPassword,
                         activity,
                         sharedPrefs,
-                        createNewPassword = true
+                        changePassword = true
                     ) {
                         Toast.makeText(activity, getString(R.string.invalid_password), Toast.LENGTH_LONG).show()
                         SplashScreenAnimation.crossfade(splashScreenView, contentView)

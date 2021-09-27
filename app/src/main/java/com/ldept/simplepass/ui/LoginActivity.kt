@@ -13,6 +13,7 @@ import androidx.biometric.BiometricPrompt
 import com.ldept.simplepass.R
 import com.ldept.simplepass.biometrics.BiometricAuthentication
 import com.ldept.simplepass.biometrics.BiometricAuthenticationListener
+import com.ldept.simplepass.databinding.ActivityLoginBinding
 import com.ldept.simplepass.util.PBKDF2
 import com.ldept.simplepass.util.SplashScreenAnimation
 import kotlinx.coroutines.*
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity(), BiometricAuthenticationListener {
     private lateinit var loginActivity : AppCompatActivity
     private lateinit var sharedPrefs : SharedPreferences
     private lateinit var editText : EditText
+    private lateinit var binding : ActivityLoginBinding
 
     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
         checkPassword()
@@ -50,9 +52,13 @@ class LoginActivity : AppCompatActivity(), BiometricAuthenticationListener {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_login)
-        loginContentView = findViewById(R.id.login_content)
-        splashScreenView = findViewById(R.id.splash_screen)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        loginContentView = binding.loginContent
+        splashScreenView = binding.splashScreenLayout.splashScreen
         sharedPrefs = getSharedPreferences(packageName, MODE_PRIVATE)
 
         if(!sharedPrefs.getBoolean("app-already-set-up",false)){
@@ -63,8 +69,8 @@ class LoginActivity : AppCompatActivity(), BiometricAuthenticationListener {
 
         SQLiteDatabase.loadLibs(this)
 
-        val unlockButton : Button = findViewById(R.id.unlock_button)
-        editText = findViewById(R.id.login_password_editText)
+        val unlockButton : Button = binding.unlockButton
+        editText = binding.loginPasswordEditText
 
         unlockButton.setOnClickListener{
             userPassword = editText.text.toString()
@@ -88,7 +94,12 @@ class LoginActivity : AppCompatActivity(), BiometricAuthenticationListener {
             SplashScreenAnimation.crossfade(loginContentView, splashScreenView)
 
             CoroutineScope(Dispatchers.IO).launch {
-                PBKDF2.checkOrCreatePassword(userPassword, loginActivity, sharedPrefs, createNewPassword = false) {
+                PBKDF2.checkOrCreatePassword(
+                    userPassword,
+                    loginActivity,
+                    sharedPrefs,
+                    changePassword = false
+                ) {
                     Toast.makeText(loginActivity, getString(R.string.invalid_password), Toast.LENGTH_LONG).show()
                     editText.text.clear()
                     SplashScreenAnimation.crossfade(splashScreenView, loginContentView)

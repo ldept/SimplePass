@@ -33,6 +33,7 @@ import com.ldept.simplepass.util.DatabaseFileOperations
 import com.ldept.simplepass.util.Network
 import com.ldept.simplepass.util.SplashScreenAnimation
 import com.google.android.material.appbar.AppBarLayout
+import com.ldept.simplepass.databinding.ActivitySettingsBinding
 import kotlinx.coroutines.*
 import java.io.File
 import java.time.LocalDateTime
@@ -55,6 +56,7 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
     private lateinit var settingsContentView : View
     private lateinit var settingsSplashScreenView : View
     private lateinit var splashScreenTextView : TextView
+    private lateinit var binding : ActivitySettingsBinding
 
     companion object{
         const val REQUEST_CREATE_FILE : Int = 1
@@ -72,21 +74,23 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         val replyIntent = Intent()
 
-        settingsContentView = findViewById(R.id.settings_content_view)
-        settingsSplashScreenView = findViewById(R.id.splash_screen)
-        splashScreenTextView = findViewById(R.id.splash_screen_textview)
+        settingsContentView = binding.settingsContentView
+        settingsSplashScreenView = binding.splashScreenLayout.splashScreen
+        splashScreenTextView = binding.splashScreenLayout.splashScreenTextview
 
-        backButton = findViewById(R.id.back_button)
+        backButton = binding.backButton
         backButton.setOnClickListener{
             goBackOrDisplayDialog()
         }
 
-        val titleTextView : TextView = findViewById(R.id.title_text_view_toolbar)
-        val appBarLayout : AppBarLayout = findViewById(R.id.app_bar_layout)
+        val titleTextView : TextView = binding.titleTextViewToolbar
+        val appBarLayout : AppBarLayout = binding.appBarLayout
         appBarLayout.addOnOffsetChangedListener( object : CollapsingToolbarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, currentState: State) {
                 if(currentState == State.COLLAPSED){
@@ -98,8 +102,8 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
             }
         } )
 
-        fingerprintSwitch = findViewById(R.id.fingerprint_switch)
-        val fingerprintSetting : ConstraintLayout = findViewById(R.id.fingerprint_setting)
+        fingerprintSwitch = binding.fingerprintSwitch
+        val fingerprintSetting : ConstraintLayout = binding.fingerprintSetting
         BiometricAuthentication.showBiometricLoginOption(this,fingerprintSetting)
 
         val isFingerprintUnlocked = sharedPrefs.getBoolean("fingerprint-unlock",false)
@@ -117,38 +121,27 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
 
         }
 
-        val changePasswordButton : Button = findViewById(R.id.change_password_button)
+        val changePasswordButton : Button = binding.changePasswordButton
         changePasswordButton.setOnClickListener {
             val intent = Intent(this,AuthenticationSettingsActivity::class.java)
             startActivity(intent)
         }
 
-        val backupButton : Button = findViewById(R.id.backup_button)
+        val backupButton : Button = binding.backupButton
         backupButton.setOnClickListener{
             createBackupFile()
         }
 
-        val importButton : Button = findViewById(R.id.import_button)
+        val importButton : Button = binding.importButton
         importButton.setOnClickListener {
             importBackupFile()
         }
 
 
-        val dropboxImportButton : Button = findViewById(R.id.dropbox_download_button)
-        dropboxImportButton.setOnClickListener{
-            if(Network.isConnectedToNetwork(this)) {
-                SplashScreenAnimation.crossfade(settingsContentView, settingsSplashScreenView)
-                splashScreenTextView.text = "Downloading database from Dropbox"
-                shouldDisplayDialog = true
-                dropboxViewModel.downloadDatabaseFile(this)
-                setResult(RESULT_BACKUP_RESTORED, replyIntent)
-            } else {
-                Toast.makeText(this,"Not connected to the internet", Toast.LENGTH_SHORT).show()
-            }
-        }
+
 
         // Licenses ==================================================================
-        val licensesButton : Button = findViewById(R.id.license_activity_button)
+        val licensesButton : Button = binding.licenseActivityButton
 
         licensesButton.setOnClickListener {
             OssLicensesMenuActivity.setActivityTitle(getString(R.string.licenses))
@@ -157,10 +150,10 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
 
         // Dropbox ===================================================================
 
-        val dropboxLoginButton : Button = findViewById(R.id.dropbox_login_button)
-        val dropboxLogoutButton : Button = findViewById(R.id.dropbox_logout_button)
-        val dropboxUploadButton : Button = findViewById(R.id.dropbox_upload_button)
-        val dropboxLastModifiedTextView : TextView = findViewById(R.id.dropbox_last_modified)
+        val dropboxLoginButton : Button = binding.dropboxLoginButton
+        val dropboxLogoutButton : Button = binding.dropboxLogoutButton
+        val dropboxUploadButton : Button = binding.dropboxUploadButton
+        val dropboxLastModifiedTextView : TextView = binding.dropboxLastModified
 
 
         dropboxLogoutButton.visibility = View.GONE
@@ -187,6 +180,18 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
                     getDatabasePath("password_database_encrypted")
                 )
 
+            } else {
+                Toast.makeText(this,getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show()
+            }
+        }
+        val dropboxDownloadButton : Button = binding.dropboxDownloadButton
+        dropboxDownloadButton.setOnClickListener{
+            if(Network.isConnectedToNetwork(this)) {
+                SplashScreenAnimation.crossfade(settingsContentView, settingsSplashScreenView)
+                splashScreenTextView.text = getString(R.string.dropbox_download)
+                shouldDisplayDialog = true
+                dropboxViewModel.downloadDatabaseFile(this)
+                setResult(RESULT_BACKUP_RESTORED, replyIntent)
             } else {
                 Toast.makeText(this,getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show()
             }
@@ -292,10 +297,10 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
         }
     }
     private fun setDropboxButtonsVisibility(){
-        val dropboxLoginButton : Button = findViewById(R.id.dropbox_login_button)
-        val dropboxLogoutButton : Button = findViewById(R.id.dropbox_logout_button)
-        val dropboxUploadButton : Button = findViewById(R.id.dropbox_upload_button)
-        val dropboxDownloadButton : Button = findViewById(R.id.dropbox_download_button)
+        val dropboxLoginButton : Button = binding.dropboxLoginButton
+        val dropboxLogoutButton : Button = binding.dropboxLogoutButton
+        val dropboxUploadButton : Button = binding.dropboxUploadButton
+        val dropboxDownloadButton : Button = binding.dropboxDownloadButton
         if(isAccessTokenSaved()){
             dropboxLoginButton.visibility = View.GONE
             dropboxLogoutButton.visibility = View.VISIBLE
@@ -310,8 +315,8 @@ class SettingsActivity : AppCompatActivity(), BiometricAuthenticationListener{
     }
 
     private fun setAccountInfoVisibility(){
-        val accountInfoTextView: TextView = findViewById(R.id.dropbox_account_info)
-        val lastModifiedTextView : TextView = findViewById(R.id.dropbox_last_modified)
+        val accountInfoTextView: TextView = binding.dropboxAccountInfo
+        val lastModifiedTextView : TextView = binding.dropboxLastModified
         if(isAccountInfoInPrefs()) {
             val email = sharedPrefs.getString("logged-account", "").toString()
             val accountInfoText = "${getString(R.string.logged_account)}: $email"

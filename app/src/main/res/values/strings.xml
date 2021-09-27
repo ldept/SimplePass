@@ -62,5 +62,6 @@
     <string name="biometric_prompt_message">Log in using your biometric credentials</string>
     <string name="cancel">Cancel</string>
     <string name="licenses">Licenses of used libraries</string>
+    <string name="dropbox_download">Downloading database from Dropbox</string>
 
 </resources>

@@ -47,7 +47,7 @@ object PBKDF2 {
     suspend fun checkOrCreatePassword(userPassword: String,
                       callingActivity : AppCompatActivity,
                       sharedPrefs : SharedPreferences,
-                      createNewPassword : Boolean,
+                      changePassword : Boolean,
                       onFailure : () -> Unit){
         val userSalt: String = sharedPrefs.getString("pbkdf2-salt", "").toString()
         val pbkdf2Pair = generatePassword(userPassword, userSalt)
@@ -60,7 +60,7 @@ object PBKDF2 {
         withContext(Dispatchers.Main) {
             try {
                 val dbFile = callingActivity.getDatabasePath("password_database_encrypted")
-                if (dbFile.exists() && !createNewPassword)
+                if (dbFile.exists() && !changePassword)
                     SQLiteDatabase.openDatabase(
                         dbFile.path,
                         password,
@@ -69,7 +69,7 @@ object PBKDF2 {
                     )
 
                 val intent = Intent(callingActivity, MainActivity::class.java)
-                if(createNewPassword)
+                if(changePassword)
                     intent.putExtra(AuthenticationSettingsActivity.NEW_PASSWORD_EXTRA, password)
                 else
                     intent.putExtra(LoginActivity.EXTRA_PASSWORD, password)

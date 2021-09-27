@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.Group
 import com.ldept.simplepass.R
 import com.ldept.simplepass.biometrics.BiometricAuthentication
 import com.ldept.simplepass.biometrics.BiometricAuthenticationListener
+import com.ldept.simplepass.databinding.ActivitySetupBinding
 import com.ldept.simplepass.util.PBKDF2
 import com.ldept.simplepass.util.SplashScreenAnimation
 import kotlinx.coroutines.CoroutineScope
@@ -26,20 +27,24 @@ import java.lang.Compiler.enable
 class SetupActivity : AppCompatActivity(), BiometricAuthenticationListener {
 
     private lateinit var fingerprintSwitch : SwitchCompat
+    private lateinit var binding : ActivitySetupBinding
     private var isFingerprintUnlocked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_setup)
+
+        binding = ActivitySetupBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
 
-        val nextButton : Button = findViewById(R.id.next_button)
-        val contentView : View = findViewById(R.id.login_setup_content)
-        val splashScreenView : View = findViewById(R.id.splash_screen)
-        fingerprintSwitch = findViewById(R.id.fingerprint_switch)
-        val fingerprintGroup : Group = findViewById(R.id.fingerprint_group)
+        val nextButton : Button = binding.nextButton
+        val contentView : View = binding.loginSetupContent
+        val splashScreenView : View = binding.splashScreenLayout.splashScreen
+        fingerprintSwitch = binding.fingerprintSwitch
+        val fingerprintGroup : Group = binding.fingerprintGroup
 
         BiometricAuthentication.showBiometricLoginOption(this, fingerprintGroup)
 
@@ -55,8 +60,8 @@ class SetupActivity : AppCompatActivity(), BiometricAuthenticationListener {
         }
 
         nextButton.setOnClickListener {
-            val firstPassEditText : EditText = findViewById(R.id.first_password_edittext)
-            val secondPassEditText : EditText = findViewById(R.id.second_password_edittext)
+            val firstPassEditText : EditText = binding.firstPasswordEdittext
+            val secondPassEditText : EditText = binding.secondPasswordEdittext
             val firstPassText = firstPassEditText.text.toString()
             val secondPassText = secondPassEditText.text.toString()
             if(firstPassText.length >= 10 && firstPassText == secondPassText){
@@ -72,7 +77,7 @@ class SetupActivity : AppCompatActivity(), BiometricAuthenticationListener {
                             firstPassText,
                             it,
                             sharedPrefs,
-                            createNewPassword = false
+                            changePassword = false
                         ) {
                             Toast.makeText(it, "Invalid Password", Toast.LENGTH_LONG).show()
                             SplashScreenAnimation.crossfade(splashScreenView, contentView)

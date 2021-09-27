@@ -20,6 +20,7 @@ import com.ldept.simplepass.database.*
 import com.ldept.simplepass.util.CollapsingToolbarStateChangeListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.ldept.simplepass.databinding.ActivityMainBinding
 import kotlin.system.exitProcess
 
 
@@ -36,18 +37,21 @@ class MainActivity
     private lateinit var passwordViewModel: PasswordViewModel
     private lateinit var adapter : PasswordListAdapter
     private lateinit var searchView : SearchView
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
 
 
-        val appBarLayout : AppBarLayout = findViewById(R.id.app_bar_layout)
-        val titleTextView : TextView = findViewById(R.id.title_text_view_toolbar)
+        val appBarLayout : AppBarLayout = binding.appBarLayout
+        val titleTextView : TextView = binding.titleTextViewToolbar
 
         var shouldTitleTextViewBeVisible = true
         titleTextView.visibility = View.GONE
@@ -66,7 +70,7 @@ class MainActivity
             }
         } )
 
-        searchView = findViewById(R.id.search_bar_searchView)
+        searchView = binding.searchBarSearchView
         searchView.setOnQueryTextListener(this)
         searchView.setOnSearchClickListener {
             shouldTitleTextViewBeVisible = false
@@ -83,7 +87,7 @@ class MainActivity
 
 
         // Database access
-        val recyclerView : RecyclerView = findViewById(R.id.recyclerview)
+        val recyclerView : RecyclerView = binding.recyclerview
         adapter = PasswordListAdapter(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter

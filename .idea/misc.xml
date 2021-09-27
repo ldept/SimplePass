@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_authentication_settings.xml" value="0.36277173913043476" />
+        <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_login.xml" value="0.36277173913043476" />
+        <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_main.xml" value="0.36277173913043476" />
+        <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_new_password.xml" value="0.25407608695652173" />
         <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_settings.xml" value="0.33" />
         <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/activity_setup.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/mlody/AndroidStudioProjects/SimplePass/app/src/main/res/layout/fragment_password_setup.xml" value="0.33" />

@@ -59,6 +59,8 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/splash_screen"/>
+    <include
+        android:id="@+id/splash_screen_layout"
+        layout="@layout/splash_screen"/>
 
 </FrameLayout>

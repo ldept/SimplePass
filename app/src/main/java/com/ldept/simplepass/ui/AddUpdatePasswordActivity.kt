@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.ldept.simplepass.database.PasswordEntry
 import com.ldept.simplepass.R
+import com.ldept.simplepass.databinding.ActivityNewPasswordBinding
 
 
 class AddUpdatePasswordActivity : AppCompatActivity() {
@@ -22,18 +23,22 @@ class AddUpdatePasswordActivity : AppCompatActivity() {
         const val EXTRA_PASSWORD_ENTRY = "package com.ldept.simplepass.EXTRA_PASSWORD_ENTRY"
     }
 
+    private lateinit var binding : ActivityNewPasswordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE)
-        setContentView(R.layout.activity_new_password)
+        binding = ActivityNewPasswordBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val editTextName : EditText = findViewById(R.id.name_add_editText)
-        val editTextLogin : EditText = findViewById(R.id.login_add_editText)
-        val editTextPassword : EditText = findViewById(R.id.password_add_editText)
-        val editTextEmail : EditText = findViewById(R.id.email_add_editText)
-        val saveButton : Button = findViewById(R.id.password_add_save_button)
+        val editTextName : EditText = binding.nameAddEditText
+        val editTextLogin : EditText = binding.loginAddEditText
+        val editTextPassword : EditText = binding.passwordAddEditText
+        val editTextEmail : EditText = binding.emailAddEditText
+        val saveButton : Button = binding.passwordAddSaveButton
 
 
 
@@ -44,9 +49,9 @@ class AddUpdatePasswordActivity : AppCompatActivity() {
             editTextPassword.setText(passwordEntry.password)
             editTextEmail.setText(passwordEntry.email)
 
-            val copyLoginButton : ImageButton = findViewById(R.id.copy_login_button)
-            val copyEmailButton : ImageButton = findViewById(R.id.copy_email_button)
-            val copyPasswordButton : ImageButton = findViewById(R.id.copy_password_button)
+            val copyLoginButton : ImageButton = binding.copyLoginButton
+            val copyEmailButton : ImageButton = binding.copyEmailButton
+            val copyPasswordButton : ImageButton = binding.copyPasswordButton
             copyEmailButton.visibility = View.VISIBLE
             copyLoginButton.visibility = View.VISIBLE
             copyPasswordButton.visibility = View.VISIBLE

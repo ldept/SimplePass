@@ -2,40 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ldept.simplepass">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
     <application
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Test">
+        android:theme="@style/Theme.SimplePass">
         <activity
-            android:name=".ui.AuthenticationSettingsActivity"
-            android:exported="true"
-            android:parentActivityName=".ui.SettingsActivity"
-            android:theme="@style/Theme.TestActionBar"/>
-        <activity android:name=".ui.SetupActivity" /> <!-- Dropbox AuthActivity -->
+            android:name=".ui.StartupActivity"
+            android:exported="true" />
         <activity
-            android:name="com.dropbox.core.android.AuthActivity"
-            android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask"
-            android:exported="true">
-            <intent-filter>
-                <data android:scheme="db-ncjmp7uu69nr7pv" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.SettingsActivity"
-            android:parentActivityName=".ui.MainActivity" />
-        <activity android:name=".ui.LoginActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,13 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.AddUpdatePasswordActivity"
-            android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/Theme.TestActionBar" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
-            android:theme="@style/Theme.TestActionBar"/>
     </application>
 
 </manifest>

@@ -59,7 +59,9 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
             }
 
             settingsButton.setOnClickListener {
-//                navController.navigate()
+                val action =
+                    PasswordListFragmentDirections.actionPasswordListFragmentToSettingsFragment()
+                navController.navigate(action)
             }
             searchBarSearchView.onQueryTextChanged(
                 { searchBarSearchView.clearFocus() },
@@ -72,9 +74,10 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
                 }
             )
             // Change AppBar text visibility if scrollview is scrolled
-            appBarLayout.addOnOffsetChangedListener( object : CollapsingToolbarStateChangeListener() {
+            appBarLayout.addOnOffsetChangedListener(object :
+                CollapsingToolbarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout?, currentState: State) {
-                    if(currentState == State.COLLAPSED){
+                    if (currentState == State.COLLAPSED) {
                         titleTextView.visibility = View.INVISIBLE
                         titleTextViewToolbar.visibility = View.VISIBLE
                     } else {
@@ -83,7 +86,7 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
                     }
 
                 }
-            } )
+            })
 
         }
         viewModel.passwords.observe(viewLifecycleOwner) {

@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context=".ui.settingsFragment.SettingsFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/settings_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SettingsActivity"
-        android:id="@+id/settings_content_view">
+        tools:context=".ui.SettingsActivity">
 
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
-            >
+            android:elevation="10dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 android:background="?attr/colorSurface"
                 app:contentScrim="?attr/colorSurface"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
 
                 app:titleEnabled="false">
 
@@ -34,20 +33,20 @@
                     android:id="@+id/title_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/settings"
                     android:textSize="42sp"
-                    android:layout_gravity="center"
-                    app:layout_collapseMode="parallax"
-                    />
+                    app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorSurface"
                     android:layout_gravity="bottom"
-                    app:title="Passwords"
-                    app:layout_collapseMode="pin" >
+                    android:background="?attr/colorSurface"
+                    app:layout_collapseMode="pin"
+                    app:title="Passwords">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -57,30 +56,28 @@
                             android:id="@+id/back_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:minHeight="36dp"
-                            android:minWidth="36dp"
-                            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_gravity="center"
                             android:layout_marginEnd="16dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:contentDescription="@string/settings"
-                            />
+                            android:minWidth="36dp"
+                            android:minHeight="36dp"
+                            android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
                         <TextView
                             android:id="@+id/title_text_view_toolbar"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="10"
                             android:gravity="center"
                             android:text="@string/settings"
-                            android:textSize="16sp"
-                            android:layout_weight="10"
-                            android:layout_gravity="center"
-                            />
+                            android:textSize="16sp" />
                         <!--                    Space to center the TextView title in the toolbar -->
                         <Space
                             android:layout_width="24dp"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"/>
+                            android:layout_marginStart="16dp" />
 
                     </LinearLayout>
 
@@ -100,29 +97,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:divider="?android:dividerHorizontal"
-                android:showDividers="middle"
-                android:dividerPadding="32dp">
+                android:dividerPadding="32dp"
+                android:orientation="vertical"
+                android:showDividers="middle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/fingerprint_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="16dp">
+                    android:layout_marginVertical="16dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/fingerprint_enable_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/fingerprint_switch"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:text="@string/fingerprint_enable_text"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/fingerprint_switch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/fingerprint_enable_under_text"
@@ -130,126 +128,129 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="4dp"
-                        android:textSize="12sp"
                         android:layout_weight="1"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="@string/fingerprint_enable_under_text"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="@+id/fingerprint_switch"
-                        app:layout_constraintTop_toBottomOf="@id/fingerprint_enable_text"
-                        android:text="@string/fingerprint_enable_under_text"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fingerprint_enable_text" />
+
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/fingerprint_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintStart_toEndOf="@+id/fingerprint_enable_text"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintBottom_toBottomOf="@id/fingerprint_enable_under_text"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fingerprint_enable_text"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <Button
                     android:id="@+id/change_password_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/change_password"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/change_password"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     android:id="@+id/backup_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/local_backup"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/local_backup"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     android:id="@+id/import_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/local_import"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/local_import"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     android:id="@+id/dropbox_login_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/log_in_to_dropbox"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/log_in_to_dropbox"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
                 <Button
                     android:id="@+id/dropbox_logout_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/log_out_of_dropbox"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/log_out_of_dropbox"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
                 <Button
                     android:id="@+id/dropbox_upload_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/upload_backup"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/upload_backup"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
                 <Button
                     android:id="@+id/dropbox_download_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:text="@string/download_backup"
                     android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@string/download_backup"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
                 <Button
                     android:id="@+id/license_activity_button"
+                    style="@style/SettingsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="16dp"
-                    style="@style/SettingsButton"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:textAlignment="viewStart"
-                    android:layout_margin="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:text="@string/licenses"
-                    />
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
                 <TextView
@@ -257,7 +258,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="16dp" />
 
 
                 <TextView
@@ -265,7 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
             </LinearLayout>
@@ -274,5 +275,5 @@
 
     <include
         android:id="@+id/splash_screen_layout"
-        layout="@layout/splash_screen"/>
+        layout="@layout/splash_screen" />
 </FrameLayout>

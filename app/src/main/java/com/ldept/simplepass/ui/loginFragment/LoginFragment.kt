@@ -1,4 +1,4 @@
-package com.ldept.simplepass.ui.LoginFragment
+package com.ldept.simplepass.ui.loginFragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.ldept.simplepass.R
 import com.ldept.simplepass.databinding.FragmentLoginBinding
-import com.ldept.simplepass.databinding.SplashScreenBinding
+import com.ldept.simplepass.ui.loginFragment.LoginViewModel.LoginEvent.*
 import com.ldept.simplepass.ui.MainActivity
 import com.ldept.simplepass.ui.StartupActivity
 import com.ldept.simplepass.ui.util.SplashScreenAnimation
+import kotlinx.coroutines.flow.collect
 
 class LoginFragment : Fragment() {
 
@@ -30,25 +32,44 @@ class LoginFragment : Fragment() {
         val binding = FragmentLoginBinding.bind(view)
         val viewModel: LoginViewModel by viewModels()
 
+        val splashScreen = binding.splashScreenLayout.splashScreen
+        val loginScreen = binding.loginContent
 
-        val splashScreenBinding = SplashScreenBinding.inflate(layoutInflater)
-
-        binding.apply{
+        binding.apply {
             unlockButton.setOnClickListener {
-                val splashScreen = splashScreenBinding.splashScreen
-                val loginScreen = binding.loginContent
                 val userPassword = loginPasswordEditText.text.toString()
-                SplashScreenAnimation.crossfade(loginScreen,splashScreen)
+                SplashScreenAnimation.crossfade(loginScreen, splashScreen)
                 viewModel.onUnlockButtonClick(userPassword)
             }
         }
 
-        viewModel.password.observe(this, Observer { password ->
+        viewModel.password.observe(viewLifecycleOwner) { password ->
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra(StartupActivity.EXTRA_PASSWORD, password)
             startActivity(intent)
             activity?.finish()
-        })
+        }
+
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.eventsFlow.collect { event ->
+                when (event) {
+                    is ShowPasswordIncorrectToast ->
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.invalid_password),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    is ShowDatabaseNotFoundToast ->
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.database_file_not_found),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                }
+                SplashScreenAnimation.crossfade(splashScreen, loginScreen)
+            }
+        }
     }
 
 }

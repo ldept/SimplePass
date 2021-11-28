@@ -5,16 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.view.Window
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
 import com.ldept.simplepass.data.Entities.PasswordEntry
 import com.ldept.simplepass.databinding.FragmentPasswordListBinding
+import com.ldept.simplepass.ui.MainActivity
+import com.ldept.simplepass.ui.util.CollapsingToolbarStateChangeListener
+import com.ldept.simplepass.ui.util.onQueryTextChanged
 
 class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener {
 
-    private lateinit var navController : NavController
+    enum class DatabaseOperation {
+        INSERT, UPDATE, DELETE
+    }
+
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,16 +39,61 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
         val binding = FragmentPasswordListBinding.bind(view)
-        val viewModel : PasswordListViewModel by viewModels()
+        val passwordListAdapter = PasswordListAdapter(this)
 
-        val adapter = PasswordListAdapter(this)
-        val repository = 
+        val repository = (activity as MainActivity).repository
 
+        val viewModelFactory = PasswordListViewModelFactory(repository)
+        val viewModel: PasswordListViewModel = ViewModelProvider(this, viewModelFactory)
+            .get(PasswordListViewModel::class.java)
+
+
+        binding.apply {
+            recyclerview.apply {
+                adapter = passwordListAdapter
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+            fab.setOnClickListener {
+                val action = PasswordListFragmentDirections
+                    .actionPasswordListFragmentToPasswordDetailsFragment()
+                navController.navigate(action)
+            }
+
+            searchBarSearchView.onQueryTextChanged(
+                { searchBarSearchView.clearFocus() },
+                { text ->
+                    val searchQuery = "%$text%"
+                    viewModel.searchPasswords(searchQuery)
+                        .observe(viewLifecycleOwner) { passwords ->
+                            passwordListAdapter.submitList(passwords)
+                        }
+                }
+            )
+            // Change AppBar text visibility if scrollview is scrolled
+            appBarLayout.addOnOffsetChangedListener( object : CollapsingToolbarStateChangeListener() {
+                override fun onStateChanged(appBarLayout: AppBarLayout?, currentState: State) {
+                    if(currentState == State.COLLAPSED){
+                        titleTextView.visibility = View.INVISIBLE
+                        titleTextViewToolbar.visibility = View.VISIBLE
+                    } else {
+                        titleTextView.visibility = View.VISIBLE
+                        titleTextViewToolbar.visibility = View.INVISIBLE
+                    }
+
+                }
+            } )
+
+        }
+        viewModel.passwords.observe(viewLifecycleOwner) {
+            passwordListAdapter.submitList(it)
+        }
     }
 
     override fun onItemClick(password: PasswordEntry) {
-        // action
-        // TODO: First add another fragment
+        val action = PasswordListFragmentDirections
+            .actionPasswordListFragmentToPasswordDetailsFragment(password)
+        navController.navigate(action)
     }
 
 

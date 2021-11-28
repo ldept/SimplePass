@@ -3,6 +3,7 @@
     package="com.ldept.simplepass">
 
     <application
+        android:name=".SimplePassApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,15 +12,20 @@
         android:theme="@style/Theme.SimplePass">
         <activity
             android:name=".ui.StartupActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SimplePassNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SimplePassNoActionBar">
+
         </activity>
     </application>
 

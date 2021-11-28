@@ -59,8 +59,7 @@ object PBKDF2 {
         if (!sharedPrefs.contains("pbkdf2-salt")) {
             sharedPrefs.edit().putString("pbkdf2-salt", pbkdf2Pair.second).apply()
         }
-        // Can't do anything related to the UI (which may be done in onFailure) on a worker thread
-        // So opening the database and errors which may happen need to be handled on the main thread
+
         val dbFile = SimplePassApp.dbFile
         if (dbFile != null && dbFile.exists())
             SQLiteDatabase.openDatabase(

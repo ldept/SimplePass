@@ -1,14 +1,15 @@
 package com.ldept.simplepass
 
 import android.app.Application
+import android.content.Context
 
 class SimplePassApp : Application() {
     init {
         instance = this
     }
     companion object {
-        private var instance: SimplePassApp? = null
-        val context by lazy {
+        var instance: SimplePassApp? = null
+        val context: Context by lazy {
             instance!!.applicationContext
         }
         val dbFile by lazy {

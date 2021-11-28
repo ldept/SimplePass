@@ -63,6 +63,7 @@
     <string name="cancel">Anuluj</string>
     <string name="licenses">Licencje użytych bibliotek</string>
     <string name="dropbox_download">Pobieranie bazy z Dropbox</string>
+    <string name="database_file_not_found">Nie znaleziono pliku bazy danych</string>
 
 
 </resources>

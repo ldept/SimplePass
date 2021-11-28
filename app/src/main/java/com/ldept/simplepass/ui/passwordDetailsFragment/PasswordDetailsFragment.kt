@@ -81,7 +81,7 @@ class PasswordDetailsFragment : Fragment() {
 
                 val action = PasswordDetailsFragmentDirections
                     .actionPasswordDetailsFragmentToPasswordListFragment()
-                findNavController().navigate(action)
+                findNavController().navigateUp()
             }
 
             // Change AppBar text visibility if scrollview is scrolled

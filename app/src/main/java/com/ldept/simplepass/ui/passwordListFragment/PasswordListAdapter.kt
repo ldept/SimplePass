@@ -1,11 +1,11 @@
-package com.ldept.simplepass.ui.PasswordListFragment
+package com.ldept.simplepass.ui.passwordListFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.databinding.PasswordItemBinding
 
 class PasswordListAdapter (

@@ -1,9 +1,9 @@
-package com.ldept.simplepass.ui.PasswordDetailsFragment
+package com.ldept.simplepass.ui.passwordDetailsFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.data.PasswordDatabaseRepository
 import kotlinx.coroutines.launch
 

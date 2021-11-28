@@ -2,7 +2,7 @@ package com.ldept.simplepass.data
 
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import kotlinx.coroutines.flow.Flow
 
 

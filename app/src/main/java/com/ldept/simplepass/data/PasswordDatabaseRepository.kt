@@ -1,7 +1,7 @@
 package com.ldept.simplepass.data
 
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import kotlinx.coroutines.flow.Flow
 
 class PasswordDatabaseRepository(

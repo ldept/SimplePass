@@ -1,19 +1,17 @@
-package com.ldept.simplepass.ui.PasswordListFragment
+package com.ldept.simplepass.ui.passwordListFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.databinding.FragmentPasswordListBinding
 import com.ldept.simplepass.ui.MainActivity
 import com.ldept.simplepass.ui.util.CollapsingToolbarStateChangeListener
@@ -60,6 +58,9 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
                 navController.navigate(action)
             }
 
+            settingsButton.setOnClickListener {
+//                navController.navigate()
+            }
             searchBarSearchView.onQueryTextChanged(
                 { searchBarSearchView.clearFocus() },
                 { text ->

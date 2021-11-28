@@ -1,16 +1,8 @@
-package com.ldept.simplepass.data.Encryption
+package com.ldept.simplepass.data.encryption
 
-import android.app.Application
 import android.content.Context.MODE_PRIVATE
-import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import com.ldept.simplepass.SimplePassApp
-import com.ldept.simplepass.ui.MainActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SQLiteException
 import java.io.FileNotFoundException
 import java.security.SecureRandom
 import java.util.*

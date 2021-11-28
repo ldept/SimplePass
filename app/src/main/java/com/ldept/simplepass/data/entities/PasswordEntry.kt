@@ -1,4 +1,4 @@
-package com.ldept.simplepass.data.Entities
+package com.ldept.simplepass.data.entities
 
 import android.os.Parcelable
 import androidx.room.Entity

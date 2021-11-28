@@ -1,8 +1,7 @@
-package com.ldept.simplepass.ui.PasswordListFragment
+package com.ldept.simplepass.ui.passwordListFragment
 
 import androidx.lifecycle.*
-import androidx.sqlite.db.SimpleSQLiteQuery
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.data.PasswordDatabaseRepository
 import kotlinx.coroutines.launch
 

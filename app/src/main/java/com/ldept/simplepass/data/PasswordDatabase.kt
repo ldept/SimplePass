@@ -6,7 +6,7 @@ import androidx.room.Room
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import androidx.room.RoomDatabase
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 
 
 @Database(entities = [PasswordEntry::class], version = 1)

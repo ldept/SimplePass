@@ -1,4 +1,4 @@
-package com.ldept.simplepass.ui.PasswordDetailsFragment
+package com.ldept.simplepass.ui.passwordDetailsFragment
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -9,16 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
-import com.ldept.simplepass.data.Entities.PasswordEntry
+import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.databinding.FragmentPasswordDetailsBinding
 import com.ldept.simplepass.ui.MainActivity
-import com.ldept.simplepass.ui.PasswordListFragment.PasswordListFragment
 import com.ldept.simplepass.ui.util.CollapsingToolbarStateChangeListener
 
 class PasswordDetailsFragment : Fragment() {
@@ -99,6 +97,9 @@ class PasswordDetailsFragment : Fragment() {
 
                 }
             } )
+            backButton.setOnClickListener {
+                findNavController().navigateUp()
+            }
 
         }
     }

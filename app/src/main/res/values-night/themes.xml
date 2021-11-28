@@ -13,4 +13,28 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.SimplePassNoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="floatingActionButtonStyle">@style/NightFab</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/teal_700</item>
+        <item name="colorPrimaryVariant">@color/teal_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="NightFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/teal_700</item>
+    </style>
+
+    <style name="SettingsButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+    </style>
+
 </resources>

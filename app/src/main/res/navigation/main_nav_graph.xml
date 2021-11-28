@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/passwordListFragment"
-        android:name="com.ldept.simplepass.ui.PasswordListFragment.PasswordListFragment"
+        android:name="com.ldept.simplepass.ui.passwordListFragment.PasswordListFragment"
         android:label="fragment_password_list"
         tools:layout="@layout/fragment_password_list" >
         <action
@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/passwordDetailsFragment"
-        android:name="com.ldept.simplepass.ui.PasswordDetailsFragment.PasswordDetailsFragment"
+        android:name="com.ldept.simplepass.ui.passwordDetailsFragment.PasswordDetailsFragment"
         android:label="fragment_password_details"
         tools:layout="@layout/fragment_password_details" >
         <argument
             android:name="passwordEntry"
-            app:argType="com.ldept.simplepass.data.Entities.PasswordEntry"
+            app:argType="com.ldept.simplepass.data.entities.PasswordEntry"
             app:nullable="true"
             android:defaultValue="@null" />
         <action

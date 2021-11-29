@@ -25,11 +25,17 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentSettingsBinding.bind(view)
-
+        val navController = findNavController()
 
         binding.apply {
             backButton.setOnClickListener {
-                findNavController().navigateUp()
+                navController.navigateUp()
+            }
+
+            changePasswordButton.setOnClickListener {
+                val action =
+                    SettingsFragmentDirections.actionSettingsFragmentToPasswordChangeFragment()
+                navController.navigate(action)
             }
             // Change AppBar text visibility if scrollview is scrolled
             appBarLayout.addOnOffsetChangedListener(object :

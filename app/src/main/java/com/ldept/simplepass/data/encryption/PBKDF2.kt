@@ -37,10 +37,7 @@ object PBKDF2 {
         }
     }
 
-
-    fun checkPassword(
-        userPassword: String,
-    ) : String {
+    private fun getPBKDF2Key(userPassword: String): String {
         val sharedPrefs = SimplePassApp.context.getSharedPreferences(
             SimplePassApp.context.packageName,
             MODE_PRIVATE
@@ -51,6 +48,14 @@ object PBKDF2 {
         if (!sharedPrefs.contains("pbkdf2-salt")) {
             sharedPrefs.edit().putString("pbkdf2-salt", pbkdf2Pair.second).apply()
         }
+        return password
+    }
+
+    fun checkPassword(
+        userPassword: String,
+    ): String {
+
+        val password = getPBKDF2Key(userPassword)
 
         val dbFile = SimplePassApp.dbFile
         if (dbFile != null && dbFile.exists())
@@ -66,6 +71,9 @@ object PBKDF2 {
         return password
 
     }
+
+    fun changePassword(userPassword: String): String =
+        getPBKDF2Key(userPassword)
 
 
 }

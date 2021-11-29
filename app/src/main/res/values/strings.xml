@@ -63,9 +63,7 @@
     <string name="cancel">Cancel</string>
     <string name="licenses">Licenses of used libraries</string>
     <string name="dropbox_download">Downloading database from Dropbox</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="database_file_not_found">Database file not found</string>
     <string name="password_details">Password details</string>
-
+    <string name="password_change_success">Password change successful</string>
 </resources>

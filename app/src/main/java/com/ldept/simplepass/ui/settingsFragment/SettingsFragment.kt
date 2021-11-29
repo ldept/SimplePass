@@ -1,11 +1,14 @@
 package com.ldept.simplepass.ui.settingsFragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
 import com.ldept.simplepass.databinding.FragmentSettingsBinding
@@ -37,6 +40,12 @@ class SettingsFragment : Fragment() {
                     SettingsFragmentDirections.actionSettingsFragmentToPasswordChangeFragment()
                 navController.navigate(action)
             }
+
+            licenseActivityButton.setOnClickListener {
+                OssLicensesMenuActivity.setActivityTitle(getString(R.string.licenses))
+                startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+            }
+
             // Change AppBar text visibility if scrollview is scrolled
             appBarLayout.addOnOffsetChangedListener(object :
                 CollapsingToolbarStateChangeListener() {

@@ -27,6 +27,12 @@
             android:theme="@style/Theme.SimplePassNoActionBar">
 
         </activity>
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/Theme.SimplePass">
+
+        </activity>
     </application>
 
 </manifest>

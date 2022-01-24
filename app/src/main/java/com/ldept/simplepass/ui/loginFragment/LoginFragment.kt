@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ldept.simplepass.R
@@ -20,6 +22,7 @@ import com.ldept.simplepass.ui.MainActivity
 import com.ldept.simplepass.ui.StartupActivity
 import com.ldept.simplepass.ui.util.SplashScreenAnimation
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
@@ -65,25 +68,27 @@ class LoginFragment : Fragment() {
         }
 
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.eventsFlow.collect { event ->
-                when (event) {
-                    is FirstLaunch ->
-                        navigateToSetupScreen()
-                    is ShowPasswordIncorrectToast ->
-                        Toast.makeText(
-                            activity,
-                            getString(R.string.invalid_password),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    is ShowDatabaseNotFoundToast ->
-                        Toast.makeText(
-                            activity,
-                            getString(R.string.database_file_not_found),
-                            Toast.LENGTH_SHORT
-                        ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.eventsFlow.collect { event ->
+                    when (event) {
+                        is FirstLaunch ->
+                            navigateToSetupScreen()
+                        is ShowPasswordIncorrectToast ->
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.invalid_password),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        is ShowDatabaseNotFoundToast ->
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.database_file_not_found),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
+                    SplashScreenAnimation.crossfade(splashScreen, loginScreen)
                 }
-                SplashScreenAnimation.crossfade(splashScreen, loginScreen)
             }
         }
     }

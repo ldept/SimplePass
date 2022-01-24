@@ -49,8 +49,8 @@
     <string name="AddUpdatePasswordActivityTitleAdd">Add new password</string>
     <string name="invalid_password">Invalid password</string>
     <string name="empty_password">Empty password</string>
-    <string name="new_passwords_mismatch">New passwords don\'t match up</string>
-    <string name="new_passwords_len">New password should be at least 10 characters long</string>
+    <string name="passwords_mismatch">Passwords don\'t match up</string>
+    <string name="passwords_length_requirement">Password should be at least 10 characters long</string>
     <string name="authentication_failed">Authentication Failed</string>
     <string name="authentication_error">Authentication error</string>
     <string name="new_password_added">New password added</string>

@@ -49,8 +49,8 @@
     <string name="AddUpdatePasswordActivityTitleAdd">Dodaj nowe hasło</string>
     <string name="invalid_password">Niepoprawne hasło</string>
     <string name="empty_password">Puste hasło</string>
-    <string name="new_passwords_mismatch">Nowe hasła nie są takie same</string>
-    <string name="new_passwords_len">Nowe hasła powinny składać się z przynajmniej 10 znaków</string>
+    <string name="passwords_mismatch">Hasła nie są takie same</string>
+    <string name="passwords_length_requirement">Hasło powinno składać się z przynajmniej 10 znaków</string>
     <string name="authentication_failed">Nie udało się uwierzytelnić</string>
     <string name="authentication_error">Błąd uwierzytelniania</string>
     <string name="new_password_added">Nowe hasło dodane</string>

@@ -2,6 +2,12 @@ package com.ldept.simplepass
 
 import android.app.Application
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import com.ldept.simplepass.data.PreferencesRepository
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
 class SimplePassApp : Application() {
     init {
@@ -15,10 +21,8 @@ class SimplePassApp : Application() {
         val dbFile by lazy {
             instance?.getDatabasePath("password_database_encrypted")
         }
-    }
-
-
-    override fun onCreate() {
-        super.onCreate()
+        val preferencesRepository by lazy {
+            PreferencesRepository(context.dataStore)
+        }
     }
 }

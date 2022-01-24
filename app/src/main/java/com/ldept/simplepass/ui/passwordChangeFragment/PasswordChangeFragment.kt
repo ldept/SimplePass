@@ -36,7 +36,7 @@ class PasswordChangeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentPasswordChangeBinding.bind(view)
         val repository = (activity as MainActivity).repository
-        val viewModel = ViewModelProvider(this, PasswordChangeViewModelFactory(repository))
+        val viewModel = ViewModelProvider(this, PasswordChangeViewModelFactory(repository,SimplePassApp.preferencesRepository))
             .get(PasswordChangeViewModel::class.java)
 
         val splashScreen = binding.splashScreenLayout.splashScreen
@@ -76,13 +76,13 @@ class PasswordChangeFragment : Fragment() {
                     is PasswordChangeViewModel.PasswordChangeEvent.PasswordTooShort ->
                         Toast.makeText(
                             activity,
-                            getString(R.string.new_passwords_len),
+                            getString(R.string.passwords_length_requirement),
                             Toast.LENGTH_SHORT
                         ).show()
                     is PasswordChangeViewModel.PasswordChangeEvent.PasswordsDontMatch ->
                         Toast.makeText(
                             activity,
-                            getString(R.string.new_passwords_mismatch),
+                            getString(R.string.passwords_mismatch),
                             Toast.LENGTH_SHORT
                         ).show()
                     is PasswordChangeViewModel.PasswordChangeEvent.PasswordChanged -> {

@@ -27,7 +27,7 @@ class PasswordDetailsViewModel(
 class PasswordDetailsViewModelFactory(
     private val repository: PasswordDatabaseRepository
 ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         if(modelClass.isAssignableFrom(PasswordDetailsViewModel::class.java))
             return PasswordDetailsViewModel(repository) as T

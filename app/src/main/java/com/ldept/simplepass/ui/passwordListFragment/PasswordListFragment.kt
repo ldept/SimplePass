@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
+import com.ldept.simplepass.SimplePassApp
 import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.databinding.FragmentPasswordListBinding
 import com.ldept.simplepass.ui.MainActivity
@@ -41,9 +42,13 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
 
         val repository = (activity as MainActivity).repository
 
-        val viewModelFactory = PasswordListViewModelFactory(repository)
+        val viewModelFactory = PasswordListViewModelFactory(repository, SimplePassApp.preferencesRepository)
         val viewModel: PasswordListViewModel = ViewModelProvider(this, viewModelFactory)
             .get(PasswordListViewModel::class.java)
+
+        val dbFilePath = activity?.getDatabasePath("password_database_encrypted")?.path
+        if(dbFilePath != null)
+            viewModel.setDbFilePath(dbFilePath)
 
 
         binding.apply {

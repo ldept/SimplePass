@@ -2,7 +2,9 @@ package com.ldept.simplepass.data.encryption
 
 import android.content.Context.MODE_PRIVATE
 import com.ldept.simplepass.SimplePassApp
+import kotlinx.coroutines.flow.collect
 import net.sqlcipher.database.SQLiteDatabase
+import java.io.File
 import java.io.FileNotFoundException
 import java.security.SecureRandom
 import java.util.*
@@ -37,43 +39,28 @@ object PBKDF2 {
         }
     }
 
-    private fun getPBKDF2Key(userPassword: String): String {
-        val sharedPrefs = SimplePassApp.context.getSharedPreferences(
-            SimplePassApp.context.packageName,
-            MODE_PRIVATE
-        )
-        val userSalt: String = sharedPrefs.getString("pbkdf2-salt", "").toString()
-        val pbkdf2Pair = generatePassword(userPassword, userSalt)
-        val password = pbkdf2Pair.first
-        if (!sharedPrefs.contains("pbkdf2-salt")) {
-            sharedPrefs.edit().putString("pbkdf2-salt", pbkdf2Pair.second).apply()
-        }
-        return password
-    }
 
-    fun checkPassword(
+    fun checkDatabasePassword(
         userPassword: String,
-    ): String {
+        userSalt: String,
+        dbFilePath: String,
+    ): Pair<String, String> {
 
-        val password = getPBKDF2Key(userPassword)
+        val (password, salt) = generatePassword(userPassword, userSalt)
+        // Try opening the database with provided password
+        SQLiteDatabase.openDatabase(
+            dbFilePath,
+            password,
+            null,
+            0
+        )
 
-        val dbFile = SimplePassApp.dbFile
-        if (dbFile != null && dbFile.exists())
-            SQLiteDatabase.openDatabase(
-                dbFile.path,
-                password,
-                null,
-                0
-            )
-        else
-            throw FileNotFoundException("Database file doesn't exist")
-
-        return password
+        return Pair(password, salt)
 
     }
 
-    fun changePassword(userPassword: String): String =
-        getPBKDF2Key(userPassword)
+    fun getNewPassword(userPassword: String, userSalt: String): String =
+        generatePassword(userPassword, userSalt).first
 
 
 }

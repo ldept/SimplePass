@@ -8,8 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.ldept.simplepass.R
+import com.ldept.simplepass.SimplePassApp
 import com.ldept.simplepass.databinding.FragmentLoginBinding
 import com.ldept.simplepass.ui.loginFragment.LoginViewModel.LoginEvent.*
 import com.ldept.simplepass.ui.MainActivity
@@ -18,6 +22,8 @@ import com.ldept.simplepass.ui.util.SplashScreenAnimation
 import kotlinx.coroutines.flow.collect
 
 class LoginFragment : Fragment() {
+
+    private val args: LoginFragmentArgs by navArgs<LoginFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +36,18 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentLoginBinding.bind(view)
-        val viewModel: LoginViewModel by viewModels()
-
+        val viewModel: LoginViewModel =
+            ViewModelProvider(this, LoginViewModelFactory(SimplePassApp.preferencesRepository, args.setupPassword))
+                .get(
+                    LoginViewModel::class.java
+                )
         val splashScreen = binding.splashScreenLayout.splashScreen
         val loginScreen = binding.loginContent
+
+        args.setupPassword?.let {
+            SplashScreenAnimation.crossfade(loginScreen, splashScreen)
+            viewModel.onUnlockButtonClick(it)
+        }
 
         binding.apply {
             unlockButton.setOnClickListener {
@@ -54,6 +68,8 @@ class LoginFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
+                    is FirstLaunch ->
+                        navigateToSetupScreen()
                     is ShowPasswordIncorrectToast ->
                         Toast.makeText(
                             activity,
@@ -70,6 +86,11 @@ class LoginFragment : Fragment() {
                 SplashScreenAnimation.crossfade(splashScreen, loginScreen)
             }
         }
+    }
+
+    private fun navigateToSetupScreen(){
+        val action = LoginFragmentDirections.actionLoginFragmentToSetupFragment()
+        findNavController().navigate(action)
     }
 
 }

@@ -18,9 +18,7 @@ class SimplePassApp : Application() {
         val context: Context by lazy {
             instance!!.applicationContext
         }
-        val dbFile by lazy {
-            instance?.getDatabasePath("password_database_encrypted")
-        }
+
         val preferencesRepository by lazy {
             PreferencesRepository(context.dataStore)
         }

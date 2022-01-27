@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ldept.simplepass.data.entities.PasswordEntry
 import com.ldept.simplepass.databinding.PasswordItemBinding
 
-class PasswordListAdapter (
-    private val listener : OnItemClickListener
-        ) : ListAdapter<PasswordEntry, PasswordListAdapter.PasswordViewHolder>(DiffCallback()) {
+class PasswordListAdapter(
+    private val listener: OnItemClickListener
+) : ListAdapter<PasswordEntry, PasswordListAdapter.PasswordViewHolder>(DiffCallback()) {
 
     inner class PasswordViewHolder(
         private val binding: PasswordItemBinding
@@ -19,9 +19,11 @@ class PasswordListAdapter (
         init {
             binding.apply {
                 root.setOnClickListener {
-                    // It's possible to click a deleted item before an animation finishes
-                    // that's why we have to check if the item we clicked is valid or not
-                    if(adapterPosition != RecyclerView.NO_POSITION){
+                    /*
+                        It's possible to click a deleted item before an animation finishes
+                        that's why we have to check if the item we clicked is valid or not
+                    */
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
                         val passwordEntry = getItem(adapterPosition)
                         listener.onItemClick(passwordEntry)
                     }
@@ -31,7 +33,9 @@ class PasswordListAdapter (
 
         fun bind(passwordEntry: PasswordEntry) {
             binding.apply {
+                nameIcon.text = passwordEntry.name.first().uppercase()
                 passwordName.text = passwordEntry.name
+                passwordLogin.text = passwordEntry.login
             }
         }
 
@@ -39,7 +43,7 @@ class PasswordListAdapter (
     }
 
     interface OnItemClickListener {
-        fun onItemClick(password : PasswordEntry)
+        fun onItemClick(password: PasswordEntry)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PasswordViewHolder {

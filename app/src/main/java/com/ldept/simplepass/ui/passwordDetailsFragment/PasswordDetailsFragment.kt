@@ -87,6 +87,8 @@ class PasswordDetailsFragment : Fragment() {
             } ?: run {
                 showContent(this, Content.EDIT_CONTENT)
                 deleteButton.isVisible = false
+                titleTextView.text = getString(R.string.AddUpdatePasswordActivityTitleAdd)
+                titleTextViewToolbar.text = getString(R.string.AddUpdatePasswordActivityTitleAdd)
             }
 
             passwordAddSaveEditButton.setOnClickListener {

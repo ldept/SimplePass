@@ -27,6 +27,7 @@ class PreferencesRepository(
 
     val userPreferencesFlow: Flow<UserPreferences> = dataStore.data
         .catch { exception ->
+            // TODO: Unacceptable!!!
             throw exception
         }
         .map { preferences ->
@@ -56,7 +57,6 @@ class PreferencesRepository(
 
     private fun mapUserPreferences(preferences: Preferences) : UserPreferences{
         val pbkdf2Salt = preferences[PBKDF2_SALT] ?: ""
-        // TODO: Change dbFilePath to String!
         val dbFilePath = preferences[DB_FILE_PATH] ?: ""
         val isFirstLaunch = preferences[IS_FIRST_LAUNCH] ?: true
         val isBiometricsEnabled = preferences[IS_BIOMETRICS_ENABLED] ?: false

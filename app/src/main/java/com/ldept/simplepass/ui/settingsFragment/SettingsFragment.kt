@@ -13,6 +13,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.ldept.simplepass.R
 import com.ldept.simplepass.databinding.FragmentSettingsBinding
 import com.ldept.simplepass.ui.util.CollapsingToolbarStateChangeListener
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SettingsFragment : Fragment() {
 
@@ -24,10 +26,12 @@ class SettingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
+    private lateinit var binding: FragmentSettingsBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentSettingsBinding.bind(view)
+        binding = FragmentSettingsBinding.bind(view)
         val navController = findNavController()
 
         binding.apply {
@@ -46,7 +50,13 @@ class SettingsFragment : Fragment() {
                 startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
             }
 
-            // Change AppBar text visibility if scrollview is scrolled
+            setupAppBar()
+        }
+    }
+
+    // Change AppBar text visibility if scrollview is scrolled
+    private fun setupAppBar() {
+        binding.apply {
             appBarLayout.addOnOffsetChangedListener(object :
                 CollapsingToolbarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout?, currentState: State) {

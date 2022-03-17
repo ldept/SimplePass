@@ -19,7 +19,7 @@ import com.ldept.simplepass.ui.util.CollapsingToolbarStateChangeListener
 import com.ldept.simplepass.ui.util.onQueryTextChanged
 
 class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener {
-    
+
     private lateinit var navController: NavController
     private lateinit var binding: FragmentPasswordListBinding
     private lateinit var viewModel: PasswordListViewModel
@@ -54,7 +54,7 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
         setupActionBar()
     }
 
-    private fun viewModelInitialization(){
+    private fun viewModelInitialization() {
         val repository = (activity as MainActivity).repository
         val viewModelFactory =
             PasswordListViewModelFactory(repository, SimplePassApp.preferencesRepository)
@@ -62,14 +62,15 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
             .get(PasswordListViewModel::class.java)
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         binding.recyclerview.apply {
             adapter = passwordListAdapter
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-    private fun setupButtons(){
+
+    private fun setupButtons() {
         binding.apply {
             fab.setOnClickListener {
                 val action = PasswordListFragmentDirections
@@ -85,7 +86,7 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
         }
     }
 
-    private fun setupSearchView(){
+    private fun setupSearchView() {
         binding.apply {
             searchBarSearchView.onQueryTextChanged(
                 { searchBarSearchView.clearFocus() },
@@ -101,7 +102,7 @@ class PasswordListFragment : Fragment(), PasswordListAdapter.OnItemClickListener
     }
 
     // Change AppBar text visibility if scrollview is scrolled
-    private fun setupActionBar(){
+    private fun setupActionBar() {
         binding.apply {
             appBarLayout.addOnOffsetChangedListener(object :
                 CollapsingToolbarStateChangeListener() {

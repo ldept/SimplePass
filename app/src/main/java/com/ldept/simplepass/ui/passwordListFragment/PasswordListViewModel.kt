@@ -21,14 +21,6 @@ class PasswordListViewModel(
     fun searchPasswords(searchQuery: String): LiveData<List<PasswordEntry>> =
         repository.searchPasswords(searchQuery).asLiveData()
 
-    fun checkpoint() = viewModelScope.launch {
-        repository.checkpoint()
-    }
-
-    fun changePassword(newPassword: String) = viewModelScope.launch {
-        repository.changePassword(newPassword)
-    }
-
     private fun setIsFirstLaunchToFalse(){
         viewModelScope.launch {
             if(preferencesRepository.userPreferencesFlow.first().isFirstLaunch)

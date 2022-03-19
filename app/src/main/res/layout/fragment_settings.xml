@@ -188,58 +188,6 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    android:id="@+id/dropbox_login_button"
-                    style="@style/SettingsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@android:color/transparent"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:text="@string/log_in_to_dropbox"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Button
-                    android:id="@+id/dropbox_logout_button"
-                    style="@style/SettingsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@android:color/transparent"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:text="@string/log_out_of_dropbox"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Button
-                    android:id="@+id/dropbox_upload_button"
-                    style="@style/SettingsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@android:color/transparent"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:text="@string/upload_backup"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Button
-                    android:id="@+id/dropbox_download_button"
-                    style="@style/SettingsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@android:color/transparent"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:text="@string/download_backup"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Button
                     android:id="@+id/license_activity_button"
                     style="@style/SettingsButton"
                     android:layout_width="match_parent"
@@ -251,22 +199,6 @@
                     android:text="@string/licenses"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-
-                <TextView
-                    android:id="@+id/dropbox_last_modified"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp" />
-
-
-                <TextView
-                    android:id="@+id/dropbox_account_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:visibility="gone" />
 
 
             </LinearLayout>

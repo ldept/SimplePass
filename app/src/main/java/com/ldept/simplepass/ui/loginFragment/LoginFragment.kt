@@ -80,6 +80,12 @@ class LoginFragment : Fragment() {
                                 getString(R.string.invalid_password),
                                 Toast.LENGTH_SHORT
                             ).show()
+                        is ShowPasswordEmptyToast ->
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.empty_password),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         is ShowDatabaseNotFoundToast ->
                             Toast.makeText(
                                 activity,

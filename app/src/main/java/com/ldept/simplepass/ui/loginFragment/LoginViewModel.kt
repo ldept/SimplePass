@@ -20,9 +20,11 @@ class LoginViewModel(
 
     sealed class LoginEvent {
         object ShowPasswordIncorrectToast : LoginEvent()
-        object ShowDatabaseNotFoundToast  : LoginEvent()
+        object ShowPasswordEmptyToast : LoginEvent()
+        object ShowDatabaseNotFoundToast : LoginEvent()
         object FirstLaunch : LoginEvent()
     }
+
     private val _password = MutableLiveData<String>()
     val password: LiveData<String>
         get() = _password
@@ -37,13 +39,18 @@ class LoginViewModel(
     }
 
     fun onUnlockButtonClick(userPassword: String) {
-        checkPassword(userPassword)
+        if (userPassword.isNotEmpty())
+            checkPassword(userPassword)
+        else
+            viewModelScope.launch {
+                eventChannel.send(LoginEvent.ShowPasswordEmptyToast)
+            }
     }
 
-    private fun getIsFirstLaunch(){
+    private fun getIsFirstLaunch() {
         viewModelScope.launch {
-            val isFirstLaunch : Boolean = userPreferencesFlow.first().isFirstLaunch
-            if(isFirstLaunch && setupPassword == null)
+            val isFirstLaunch: Boolean = userPreferencesFlow.first().isFirstLaunch
+            if (isFirstLaunch && setupPassword == null)
                 eventChannel.send(LoginEvent.FirstLaunch)
         }
     }
@@ -101,7 +108,7 @@ class LoginViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(LoginViewModel::class.java))
+        if (modelClass.isAssignableFrom(LoginViewModel::class.java))
             return LoginViewModel(preferencesRepository, setupPassword) as T
         else
             throw IllegalArgumentException("Unknown ViewModel class")
